@@ -1,11 +1,12 @@
-from PyQt6 import QtWidgets
 import sys
 
-from mainWindow import Ui_MainWindow
+from PyQt6 import QtWidgets
+
 import main
+from mainWindow import Ui_MainWindow
 
 data = {'github': 'https://github.com/Forest1sland',
-        'help': '首先将游戏设置成窗口化拉伸模式，然后在该程序中设置好分辨率,必须为电脑支持的分辨率，点击启动。',
+        'help': '首先将游戏设置成窗口化拉伸模式，然后在该程序中设置好分辨率,必须为电脑支持的分辨率，点击启动。不要关闭程序，结束游戏后还原初始分辨率。',
         'version': 'v1.0'}
 
 
@@ -25,10 +26,15 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         QtWidgets.QMessageBox.information(self, 'Help', data['help'])
 
     def backDefault(self):
-        main.backDefault()
+        print(main.oh, main.ow, main.of)
+        main.backDefault(main.oh, main.ow, main.of)
 
     def clickStart(self):
-        main.start()
+        print(self.width.toPlainText(), self.length.toPlainText(), self.frequency.toPlainText())
+        if main.start(self.width.toPlainText(), self.length.toPlainText(), self.frequency.toPlainText()):
+            QtWidgets.QMessageBox.information(self, 'Tip', "拉伸成功！")
+        else:
+            QtWidgets.QMessageBox.information(self, 'Tip', "拉伸失败！")
 
 
 if __name__ == "__main__":

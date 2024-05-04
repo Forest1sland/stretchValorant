@@ -1,15 +1,20 @@
 from win32gui import FindWindow, GetWindowLong, ShowWindow, SetWindowLong, GetDC
-from win32con import GWL_STYLE, WS_BORDER, WS_DLGFRAME, SW_SHOWMAXIMIZED, DESKTOPHORZRES, DESKTOPVERTRES
+from win32con import GWL_STYLE, WS_BORDER, WS_DLGFRAME, SW_SHOWMAXIMIZED, DESKTOPHORZRES, DESKTOPVERTRES, \
+    VREFRESH
 from win32api import EnumDisplaySettings, ChangeDisplaySettings
 import win32print
 
 handle = FindWindow("UnrealWindow", "VALORANT  ")
 hDC = GetDC(0)
 # 横向分辨率
-w = win32print.GetDeviceCaps(hDC, DESKTOPHORZRES)
+ow = win32print.GetDeviceCaps(hDC, DESKTOPHORZRES)
 # 纵向分辨率
-h = win32print.GetDeviceCaps(hDC, DESKTOPVERTRES)
+oh = win32print.GetDeviceCaps(hDC, DESKTOPVERTRES)
+# 刷新率
+of = win32print.GetDeviceCaps(hDC, VREFRESH)
 
+
+# 可选添加一个通用返回类
 
 def changeDisplay(h=1024, w=1280, f=144):
     dm = EnumDisplaySettings(None, 0)
@@ -20,10 +25,10 @@ def changeDisplay(h=1024, w=1280, f=144):
     dm.DisplayFrequency = f
     if ChangeDisplaySettings(dm, 0) == 0:
         print("分辨率修改成功！")
-        return 1
+        return True
     else:
         print("分辨率修改失败！")
-        return 0
+        return False
 
 
 def stretchWindow():
@@ -31,31 +36,31 @@ def stretchWindow():
         SetWindowLong(handle, GWL_STYLE, GetWindowLong(handle, GWL_STYLE) & ~WS_DLGFRAME) and
         ShowWindow(handle, SW_SHOWMAXIMIZED)) != 0:
         print("拉伸成功！")
+        return True
     else:
         print("拉伸失败！")
+        return False
 
 
-def backDefault():
+def backDefault(h=1080, w=1920, f=144):
     dm = EnumDisplaySettings(None, 0)
-    dm.PelsHeight = 1080
-    dm.PelsWidth = 1920
+    dm.PelsHeight = h
+    dm.PelsWidth = w
     dm.BitsPerPel = 32
     dm.DisplayFixedOutput = 2
-    dm.DisplayFrequency = 144
+    dm.DisplayFrequency = f
     if ChangeDisplaySettings(dm, 0) == 0:
         print("分辨率修改成功！")
-        return 1
+        return True
     else:
         print("分辨率修改失败！")
-        return 0
+        return False
 
 
 def start(h=1024, w=1280, f=144):
     if handle:
-        if changeDisplay(h, w, f) == 1:
+        if changeDisplay(h, w, f):
             stretchWindow()
     else:
-        print("游戏未启动。")
-
-
-start()
+        print("请启动无畏契约。")
+        return False
