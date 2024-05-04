@@ -11,12 +11,12 @@ w = win32print.GetDeviceCaps(hDC, DESKTOPHORZRES)
 h = win32print.GetDeviceCaps(hDC, DESKTOPVERTRES)
 
 
-def changeDisplay(h=1280, w=1024, f=144):
+def changeDisplay(h=1024, w=1280, f=144):
     dm = EnumDisplaySettings(None, 0)
     dm.PelsHeight = h
     dm.PelsWidth = w
     dm.BitsPerPel = 32
-    dm.DisplayFixedOutput = 2
+    dm.DisplayFixedOutput = 0
     dm.DisplayFrequency = f
     if ChangeDisplaySettings(dm, 0) == 0:
         print("分辨率修改成功！")
@@ -50,10 +50,12 @@ def backDefault():
         return 0
 
 
-def start():
+def start(h=1024, w=1280, f=144):
     if handle:
-        if changeDisplay() == 1:
+        if changeDisplay(h, w, f) == 1:
             stretchWindow()
     else:
         print("游戏未启动。")
 
+
+start()

@@ -1,13 +1,12 @@
-
 from PyQt6 import QtWidgets
 import sys
 
 from mainWindow import Ui_MainWindow
 import main
-import yaml
 
-with open('text.yaml') as f:
-    data = yaml.load(f, Loader=yaml.FullLoader)
+data = {'github': 'https://github.com/Forest1sland',
+        'help': '首先将游戏设置成窗口化拉伸模式，然后在该程序中设置好分辨率,必须为电脑支持的分辨率，点击启动。',
+        'version': 'v1.0'}
 
 
 class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -34,7 +33,7 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    main = MyWindow()
+    mainW = MyWindow()
 
-    main.show()
+    mainW.show()
     sys.exit(app.exec())
