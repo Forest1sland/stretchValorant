@@ -6,16 +6,17 @@ import win32print
 
 handle = FindWindow("UnrealWindow", "VALORANT  ")
 hDC = GetDC(0)
-# 横向分辨率
+# 初始横向分辨率
 ow = win32print.GetDeviceCaps(hDC, DESKTOPHORZRES)
-# 纵向分辨率
+# 初始纵向分辨率
 oh = win32print.GetDeviceCaps(hDC, DESKTOPVERTRES)
-# 刷新率
+# 初始刷新率
 of = win32print.GetDeviceCaps(hDC, VREFRESH)
 
 
 # 可选添加一个通用返回类
 
+# 更改电脑分辨率
 def changeDisplay(h, w, f):
     dm = EnumDisplaySettings(None, 0)
     dm.PelsHeight = h
@@ -30,7 +31,7 @@ def changeDisplay(h, w, f):
         print("分辨率修改失败！")
         return False
 
-
+# 拉伸游戏
 def stretchWindow():
     if (SetWindowLong(handle, GWL_STYLE, GetWindowLong(handle, GWL_STYLE) & ~WS_BORDER, ) and
         SetWindowLong(handle, GWL_STYLE, GetWindowLong(handle, GWL_STYLE) & ~WS_DLGFRAME) and
@@ -41,7 +42,7 @@ def stretchWindow():
         print("拉伸失败！")
         return False
 
-
+# 还原初始分辨率
 def backDefault():
     dm = EnumDisplaySettings(None, 0)
     dm.PelsHeight = oh
@@ -56,7 +57,7 @@ def backDefault():
         print("分辨率修改失败！")
         return False
 
-
+# 启动
 def start(h, w, f):
     if handle:
         if changeDisplay(h, w, f):

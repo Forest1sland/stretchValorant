@@ -1,6 +1,6 @@
 from PyQt6 import QtCore, QtWidgets
 
-
+# qt ui 界面
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -41,7 +41,7 @@ class Ui_MainWindow(object):
         self.help.setGeometry(QtCore.QRect(50, 100, 75, 23))
         self.help.setObjectName("help")
 
-        # 文本
+        # text
         self.label = QtWidgets.QLabel(parent=self.centralwidget)
         self.label.setGeometry(QtCore.QRect(40, 40, 71, 16))
         self.label.setObjectName("label")
