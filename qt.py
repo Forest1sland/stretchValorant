@@ -27,11 +27,15 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def backDefault(self):
         print(main.oh, main.ow, main.of)
-        main.backDefault(main.oh, main.ow, main.of)
+        if main.backDefault():
+            QtWidgets.QMessageBox.information(self, 'Tip', "还原成功！")
+        else:
+            QtWidgets.QMessageBox.information(self, 'Tip', "还原失败！")
 
     def clickStart(self):
-        print(self.width.toPlainText(), self.length.toPlainText(), self.frequency.toPlainText())
-        if main.start(self.width.toPlainText(), self.length.toPlainText(), self.frequency.toPlainText()):
+        print(self.heightText.toPlainText(), self.widthText.toPlainText(), self.frequency.toPlainText())
+        if main.start(int(self.heightText.toPlainText()), int(self.widthText.toPlainText()),
+                      int(self.frequency.toPlainText())):
             QtWidgets.QMessageBox.information(self, 'Tip', "拉伸成功！")
         else:
             QtWidgets.QMessageBox.information(self, 'Tip', "拉伸失败！")

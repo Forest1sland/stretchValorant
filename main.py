@@ -16,7 +16,7 @@ of = win32print.GetDeviceCaps(hDC, VREFRESH)
 
 # 可选添加一个通用返回类
 
-def changeDisplay(h=1024, w=1280, f=144):
+def changeDisplay(h, w, f):
     dm = EnumDisplaySettings(None, 0)
     dm.PelsHeight = h
     dm.PelsWidth = w
@@ -42,13 +42,13 @@ def stretchWindow():
         return False
 
 
-def backDefault(h=1080, w=1920, f=144):
+def backDefault():
     dm = EnumDisplaySettings(None, 0)
-    dm.PelsHeight = h
-    dm.PelsWidth = w
+    dm.PelsHeight = oh
+    dm.PelsWidth = ow
     dm.BitsPerPel = 32
     dm.DisplayFixedOutput = 2
-    dm.DisplayFrequency = f
+    dm.DisplayFrequency = of
     if ChangeDisplaySettings(dm, 0) == 0:
         print("分辨率修改成功！")
         return True
@@ -57,10 +57,10 @@ def backDefault(h=1080, w=1920, f=144):
         return False
 
 
-def start(h=1024, w=1280, f=144):
+def start(h, w, f):
     if handle:
         if changeDisplay(h, w, f):
-            stretchWindow()
+            return stretchWindow()
     else:
         print("请启动无畏契约。")
         return False
