@@ -31,6 +31,7 @@ def changeDisplay(h, w, f):
         print("分辨率修改失败！")
         return False
 
+
 # 拉伸游戏
 def stretchWindow():
     if (SetWindowLong(handle, GWL_STYLE, GetWindowLong(handle, GWL_STYLE) & ~WS_BORDER, ) and
@@ -41,6 +42,7 @@ def stretchWindow():
     else:
         print("拉伸失败！")
         return False
+
 
 # 还原初始分辨率
 def backDefault():
@@ -56,6 +58,7 @@ def backDefault():
     else:
         print("分辨率修改失败！")
         return False
+
 
 # 启动
 def start(h, w, f):

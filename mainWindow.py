@@ -1,5 +1,6 @@
 from PyQt6 import QtCore, QtWidgets
 
+
 # qt ui 界面
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
